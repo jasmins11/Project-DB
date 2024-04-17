@@ -1,0 +1,38 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="update-anime">
+            <form action="/anime/update/<%= anime._id %>" method="POST">
+                <label for="title">Anime title:</label>
+                <input type="text" id="title" name="title" value="<%= anime.title %>" required>
+                <label for="type">Anime type:</label>
+                <select id="type" name="type" value="<%= anime.type%>" required>
+                    <option value="" selected disabled>Select type</option>
+                    <option value="Movie">Movie</option>
+                    <option value="Serial">Serial</option>
+                </select>
+                <label for="genres">Anime genres:</label>
+                <input id="genres" name="genres" value="<%= anime.genres.join(', ') %>" required>
+                <label for="rating">Anime rating:</label>
+                <select id="rating" name="rating" value="<%= anime.rating %>" required>
+                    <option value="" selected disabled>Select rating</option>
+                    <option value="1">1-> I don't want to see this again</option>
+                    <option value="2">2-> Very Bad </option>
+                    <option value="3">3-> Bad </option>
+                    <option value="4">4-> Boring </option>
+                    <option value="5">5-> Not for me </option>
+                    <option value="6">6-> Meh </option>
+                    <option value="7">7-> Needs improvements </option>
+                    <option value="8">8-> Good </option>
+                    <option value="9">9-> Very Good </option>
+                    <option value="10">10-> Awesone </option>
+                    </select>
+                <label for="description">Your description:</label>
+                <textarea id="description" name="description" required><%= anime.description %></textarea>
+                <button>Submit</button>
+            </form>
+        </div>
+        <%- include('./partials/footer.ejs') %>
+    </body>
+</html>

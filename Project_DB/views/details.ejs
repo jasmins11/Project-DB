@@ -1,0 +1,57 @@
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/nav.ejs") %>
+
+        <div class="details content">
+            <h2><%= anime.title %></h2>
+            <div class="content">
+              <div class="section1">
+                <h4> <p>Type: <%= anime.type %></p></h4>
+              </div>
+              <div class="section2">
+                <h4>Genres: </h4>
+                <p><%= anime.genres.join(', ') %> %></p>
+              </div>
+              <div class="section3">
+                <h4> <p>Your rating: <%= anime.rating %></p></h4>
+              </div>
+              <div class="section">
+                <h4>Your thoughts: </h4>
+                <p><%= anime.description %></p>
+              </div>
+             
+            </div>
+            <a class="delete" data-doc="<%= anime._id %>">delete</a>
+            <a class="update" data-doc="<%= anime._id %>">update</a>
+            
+        </div>
+        <%-include("./partials/footer.ejs") %>
+        <script>
+
+          const handleUpdate = (id) => {
+            const endpoint = `/anime/update/${id}`;
+            window.location.href = endpoint;
+          };
+          const updateButton = document.querySelector('.update');
+          updateButton.addEventListener('click', (e) => {
+            const id = updateButton.dataset.doc;
+            handleUpdate(id);
+          });
+
+          const trashcan = document.querySelector('a.delete');
+            trashcan.addEventListener('click', (e) => {
+              const endpoint = `/anime/${trashcan.dataset.doc}`;
+        
+              fetch(endpoint, {
+                method: 'DELETE',
+              })
+              .then(response => response.json())
+              .then(data => window.location.href = data.redirect)
+              .catch(err => console.log(err));
+            });
+            
+          </script>
+    </body>
+</html>
